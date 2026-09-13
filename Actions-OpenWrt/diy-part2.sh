@@ -18,3 +18,7 @@
 
 # Modify hostname
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
+
+# Force disable Passwall2 Rust dependencies to prevent build failure
+sed -i 's/default y if aarch64||x86_64/default n/g' feeds/passwall2/luci-app-passwall2/Makefile
+sed -i 's/default y if aarch64||arm||i386||x86_64/default n/g' feeds/passwall2/luci-app-passwall2/Makefile
