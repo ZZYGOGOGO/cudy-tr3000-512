@@ -22,3 +22,15 @@
 # Force disable Passwall2 Rust dependencies to prevent build failure
 sed -i 's/default y if aarch64||x86_64/default n/g' feeds/passwall2/luci-app-passwall2/Makefile
 sed -i 's/default y if aarch64||arm||i386||x86_64/default n/g' feeds/passwall2/luci-app-passwall2/Makefile
+
+# Disable Rust CI LLVM download to fix build failures
+# This prevents Rust from trying to download unavailable CI artifacts
+if [ -d "feeds/packages/lang/rust" ]; then
+  echo "Configuring Rust to disable CI LLVM download..."
+  sed -i 's/download-ci-llvm = true/download-ci-llvm = false/g' feeds/packages/lang/rust/Makefile 2>/dev/null || true
+  # Also try config.toml if it exists
+  if [ -f "feeds/packages/lang/rust/config.toml" ]; then
+    sed -i 's/download-ci-llvm = true/download-ci-llvm = false/g' feeds/packages/lang/rust/config.toml
+  fi
+  echo "✅ Rust CI LLVM download disabled"
+fi
