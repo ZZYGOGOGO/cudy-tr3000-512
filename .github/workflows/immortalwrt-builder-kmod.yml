@@ -196,6 +196,12 @@ jobs:
         echo "## ImmortalWrt for Cudy TR3000(512MB)" > ${{ github.workspace }}/release.txt
         echo "- Branch: ${REPO_BRANCH}" >> ${{ github.workspace }}/release.txt
         echo "- Build time: ${BUILD_TIME}" >> ${{ github.workspace }}/release.txt
+        echo "" >> ${{ github.workspace }}/release.txt
+        echo "### 🧩 Included Packages" >> ${{ github.workspace }}/release.txt
+        echo "- **PassWall2** (luci-app-passwall2) — 透明代理插件" >> ${{ github.workspace }}/release.txt
+        echo "- **sing-box** — 通用代理内核" >> ${{ github.workspace }}/release.txt
+        echo "- **xray-core** — Xray 代理内核" >> ${{ github.workspace }}/release.txt
+        echo "- **v2ray-geoip / v2ray-geosite** — 路由规则数据" >> ${{ github.workspace }}/release.txt
         # echo "" >> ${{ github.workspace }}/release.txt
         # echo "### SHA256" >> ${{ github.workspace }}/release.txt
         # cat sha256sums.txt >> ${{ github.workspace }}/release.txt
