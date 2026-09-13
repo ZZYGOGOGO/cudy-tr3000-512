@@ -81,7 +81,18 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
-      run: cd openwrt && ./scripts/feeds update -a
+      run: |
+        cd openwrt
+        for i in 1 2 3; do
+          echo "🔄 feeds update attempt $i..."
+          ./scripts/feeds update -a && break
+          echo "⚠️ Attempt $i failed, retrying in 15s..."
+          sleep 15
+          if [ $i -eq 3 ]; then
+            echo "❌ feeds update failed after 3 attempts"
+            exit 1
+          fi
+        done
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
